@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Product Exchange Platform</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ }
+ #container {
+ max-width: 800px;
+ margin: 0 auto;
+ }
+ form {
+ margin-bottom: 20px;
+ }
+ .product, .requirement {
+ border: 1px solid #ccc;
+ padding: 10px;
+ margin-bottom: 10px;
+ }
+ .match {
+ background-color: #dff0d8;
+ }
+ </style>
+</head>
+<body>
+ <div id="container">
+ <h1>Product Exchange Platform</h1>
+ <form id="postForm">
+ <label for="postType">Choose Action:</label>
+ <select id="postType" onchange="toggleForm()">
+ <option value="product">Post Product</option>
+ <option value="requirement">Post Requirement</option>
+ </select>
+ <div id="productForm">
+ <label for="productName">Product Name:</label>
+ <input type="text" id="productName" required>
+ <br>
+ <label for="productDescription">Description:</label>
+ <textarea id="productDescription" required></textarea>
+ <br>
+ <label for="productPrice">Price:</label>
+11
+ <input type="number" id="productPrice" required>
+ </div>
+ <div id="requirementForm" style="display:none;">
+ <label for="requirementDescription">Requirement Description:</label>
+ <textarea id="requirementDescription" required></textarea>
+ </div>
+ <br>
+ <button type="button" onclick="postItem()">Submit</button>
+ </form>
+ <div id="matches">
+ <h2>Matches</h2>
+ </div>
+ </div>
+ <script>
+ function toggleForm() {
+ var postType = document.getElementById("postType").value;
+ document.getElementById("productForm").style.display = (postType === "product") ? 
+"block" : "none";
+ document.getElementById("requirementForm").style.display = (postType === 
+"requirement") ? "block" : "none";
+ }
+ function postItem() {
+ var postType = document.getElementById("postType").value;
+ var container = document.getElementById("matches");
+ if (postType === "product") {
+ var productName = document.getElementById("productName").value;
+ var productDescription = document.getElementById("productDescription").value;
+ var productPrice = document.getElementById("productPrice").value;
+ var productDiv = document.createElement("div");
+ productDiv.className = "product";
+ productDiv.innerHTML = 
+`<strong>${productName}</strong><br>${productDescription}<br>Price: $${productPrice}`;
+ container.appendChild(productDiv);
+12
+ } else if (postType === "requirement") {
+ var requirementDescription = 
+document.getElementById("requirementDescription").value;
+ var requirementDiv = document.createElement("div");
+ requirementDiv.className = "requirement";
+ requirementDiv.innerHTML = 
+`<strong>Requirement:</strong><br>${requirementDescription}`;
+ container.appendChild(requirementDiv);
+ }
+ // Simulate matching logic
+ var matchDiv = document.createElement("div");
+ matchDiv.className = "match";
+ matchDiv.innerHTML = "<strong>Match found!</strong><br>Initiate exchange or complete later.";
+ container.appendChild(matchDiv);
+ }
+ </script>
+</body>
+</html>
